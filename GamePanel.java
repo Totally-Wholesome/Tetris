@@ -13,7 +13,8 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     private final Color[][] grid = new Color[gridRows][gridColumns]; // Now stores Color objects
     
     private Timer timer;
-    private int currentX, currentY;
+    private int currentX;
+    private int currentY;
     private int[][] currentShape;
     private Color currentColor;
     private boolean gameOver = false;
