@@ -12,11 +12,12 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     private int gridRows = 20;
     private Color[][] grid = new Color[gridRows][gridColumns];
     
-    private Timer timer = new Timer(500, this);;
+    private Timer timer = new Timer(500, this);
     private Random random = new Random();
     private int currentX;
     private int currentY;
     private int[][] currentShape;
+    private int currentShapeIndex;
     private Color currentColor;
     private boolean gameOver = false;
     
@@ -30,12 +31,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         {{1, 1, 0}, {0, 1, 1}}  // Z
     };
     
-    private Color[] colors = {
-        Color.CYAN, Color.YELLOW, Color.MAGENTA, Color.ORANGE, Color.BLUE, Color.GREEN, Color.RED
-    };
-    
-    // Tracks which shape index is current
-    private int currentShapeIndex;
+    private Color[] colors = {Color.CYAN, Color.YELLOW, Color.MAGENTA, Color.ORANGE, Color.BLUE, Color.GREEN, Color.RED};
     
     public GamePanel() {
         this.setPreferredSize(new Dimension(gridColumns * squareSize, gridRows * squareSize));
@@ -52,10 +48,8 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
     	currentShapeIndex = random.nextInt(shapes.length);
         currentShape = shapes[currentShapeIndex];
         currentColor = colors[currentShapeIndex];
-        
         currentX = gridColumns / 2 - currentShape[0].length / 2;
-        currentY = 0;
-        
+        currentY = 0;       
         if (!gameOver && checkCollision()) {
             gameOver = true;
             timer.stop();
@@ -108,11 +102,10 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
                 for (int r = row; r > 0; r--) {
                     System.arraycopy(grid[r - 1], 0, grid[r], 0, gridColumns);
                 }
-                // Clear top line
                 for (int col = 0; col < gridColumns; col++) {
                     grid[0][col] = null;
                 }
-                row++; // Check the same row again
+                row++;
             }
         }
     }
@@ -126,7 +119,6 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
                 rotated[col][currentShape.length - 1 - row] = currentShape[row][col];
             }
         }
-        
         int[][] oldShape = currentShape;
         currentShape = rotated;
         
