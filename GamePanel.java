@@ -102,9 +102,6 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
                 for (int r = row; r > 0; r--) {
                     System.arraycopy(grid[r - 1], 0, grid[r], 0, GRID_COLUMNS);
                 }
-                for (int col = 0; col < GRID_COLUMNS; col++) {
-                    grid[0][col] = null;
-                }
                 row++;
             }
         }
